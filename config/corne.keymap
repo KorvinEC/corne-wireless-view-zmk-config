@@ -50,7 +50,7 @@
             flavor = "balanced";
             tapping-term-ms = <210>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
+//            require-prior-idle-ms = <150>;
             hold-trigger-key-positions = <CORNE_RIGHT_NUMBERS>;
             hold-trigger-on-release;
             bindings = <&kp>, <&kp>;
@@ -61,7 +61,7 @@
             flavor = "balanced";
             tapping-term-ms = <210>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
+//            require-prior-idle-ms = <150>;
             hold-trigger-key-positions = <CORNE_LEFT_NUMBERS>;
             hold-trigger-on-release;
             bindings = <&kp>, <&kp>;
