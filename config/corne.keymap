@@ -28,12 +28,25 @@
 #define BHT(kp_1, kp_2) &bht kp_1 kp_2
 
 #define COMBO(NAME, BINDINGS, KEYPOS) \
-  combo_##NAME { \
+  combo_ ## NAME { \
     timeout-ms = <50>; \
     bindings = <BINDINGS>; \
     key-positions = <KEYPOS>; \
-    layers = <0>; \
+    layers = <BASE SYM NUM>; \
   };
+
+#define HOME_ROW_MOD(NAME, HOLD_TRIGGER_POSITIONS) \
+  NAME: NAME { \
+    compatible = "zmk,behavior-hold-tap"; \
+    #binding-cells = <2>; \
+    flavor = "balanced"; \
+    tapping-term-ms = <210>; \
+    quick-tap-ms = <175>; \
+    hold-trigger-key-positions = <HOLD_TRIGGER_POSITIONS>; \
+    hold-trigger-on-release; \
+    bindings = <&kp>, <&kp>; \
+  };
+
 
 / {
 
@@ -60,6 +73,7 @@
     combos {
         compatible = "zmk,combos";
         require-prior-idle-ms = <150>;
+
         COMBO(CARET, &kp CARET, 6 18)
         COMBO(PLUS, &kp PLUS, 7 19)
         COMBO(KP_MULTIPLY, &kp KP_MULTIPLY, 8 20)
@@ -75,34 +89,6 @@
     };
 
     behaviors {
-        bd: backspace_delete {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp BSPC>, <&kp DEL>;
-            mods = <(MOD_RCTL)>;
-        };
-
-        hml: homerow_mods_left {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <210>;
-            quick-tap-ms = <175>;
-            hold-trigger-key-positions = <CORNE_RIGHT_NUMBERS>;
-            hold-trigger-on-release;
-            bindings = <&kp>, <&kp>;
-        };
-        hmr: homerow_mods_right  {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <210>;
-            quick-tap-ms = <175>;
-            hold-trigger-key-positions = <CORNE_LEFT_NUMBERS>;
-            hold-trigger-on-release;
-            bindings = <&kp>, <&kp>;
-        };
-
         bht: behavior_hold_preferred {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -111,6 +97,9 @@
             quick-tap-ms = <175>;
             bindings = <&mo>, <&kp>;
         };
+
+        HOME_ROW_MOD(hml, CORNE_RIGHT_NUMBERS)
+        HOME_ROW_MOD(hmr, CORNE_LEFT_NUMBERS)
     };
 
     keymap {
