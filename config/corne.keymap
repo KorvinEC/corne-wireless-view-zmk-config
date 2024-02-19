@@ -78,15 +78,15 @@
     combos {
         compatible = "zmk,combos";
         require-prior-idle-ms = <150>;
-
         COMBO(CARET, &kp CARET, 6 18)
-        COMBO(PLUS, &kp PLUS, 7 19)
-        COMBO(KP_MULTIPLY, &kp KP_MULTIPLY, 8 20)
+        COMBO(PLUS, &kp PLUS, 6 7)
+        COMBO(EQUAL, &kp EQUAL, 7 8)
+        COMBO(MINUS, &kp MINUS, 18 19)
+        COMBO(KP_MULTIPLY, &kp KP_MULTIPLY, 8 9)
         COMBO(DLLR, &kp DLLR, 9 21)
         COMBO(LPAR, &kp LPAR, 19 20)
         COMBO(RPAR, &kp RPAR, 20 21)
         COMBO(UNDER, &kp UNDER, 18 30)
-        COMBO(MINUS, &kp MINUS, 19 31)
         COMBO(FSLH, &kp FSLH, 20 32)
         COMBO(PIPE, &kp PIPE, 21 33)
         COMBO(LBKT, &kp LBKT, 31 32)
