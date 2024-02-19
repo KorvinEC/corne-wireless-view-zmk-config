@@ -48,6 +48,11 @@
   };
 
 
+
+&caps_word {
+    continue-list = <UNDERSCORE MINUS>;
+};
+
 / {
 
     conditional_layers {
