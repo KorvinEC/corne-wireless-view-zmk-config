@@ -27,12 +27,13 @@
 #define L_HR(kp_1, kp_2, kp_3, kp_4) &hml LGUI  kp_1 &hml LALT   kp_2 &hml LSHIFT kp_3 &hml LCTRL kp_4
 #define BHT(kp_1, kp_2) &bht kp_1 kp_2
 
-#define COMBO(NAME, BINDINGS, KEYPOS) \
+#define COMBO(NAME, LAYERS, BINDINGS, KEYPOS) \
   combo_ ## NAME { \
     timeout-ms = <50>; \
+    require-prior-idle-ms = <25>; \
     bindings = <BINDINGS>; \
     key-positions = <KEYPOS>; \
-    layers = <BASE SYM NUM>; \
+    layers = <LAYERS>; \
   };
 
 #define HOME_ROW_MOD(NAME, HOLD_TRIGGER_POSITIONS) \
@@ -47,10 +48,16 @@
     bindings = <&kp>, <&kp>; \
   };
 
-
+#define MOD_MORPH(NAME, LEFT, RIGHT, MODS) \
+    NAME: NAME { \
+        compatible = "zmk,behavior-mod-morph"; \
+        #binding-cells = <0>; \
+        bindings = <&kp LEFT>, <&kp RIGHT>; \
+        mods = <(MODS)>; \
+    };
 
 &caps_word {
-    continue-list = <UNDERSCORE MINUS>;
+    continue-list = <UNDERSCORE MINUS BSPC DEL>;
 };
 
 / {
@@ -72,25 +79,31 @@
     │ 24  25  26  27  28  29 │ 30  31  32  33  34  35 │
     ╰───────────╮ 36  37  38 │ 39  40  41 ╭───────────╯
                 ╰────────────┴────────────╯
-
 */
 
     combos {
         compatible = "zmk,combos";
         require-prior-idle-ms = <150>;
-        COMBO(CARET, &kp CARET, 6 18)
-        COMBO(PLUS, &kp PLUS, 6 7)
-        COMBO(EQUAL, &kp EQUAL, 7 8)
-        COMBO(MINUS, &kp MINUS, 18 19)
-        COMBO(KP_MULTIPLY, &kp KP_MULTIPLY, 8 9)
-        COMBO(DLLR, &kp DLLR, 9 21)
-        COMBO(LPAR, &kp LPAR, 19 20)
-        COMBO(RPAR, &kp RPAR, 20 21)
-        COMBO(UNDER, &kp UNDER, 18 30)
-        COMBO(FSLH, &kp FSLH, 20 32)
-        COMBO(PIPE, &kp PIPE, 21 33)
-        COMBO(LBKT, &kp LBKT, 31 32)
-        COMBO(RBKT, &kp RBKT, 32 33)
+
+        COMBO(KP_MULTIPLY, BASE NUM, &kp KP_MULTIPLY, 7 9)
+        COMBO(PLUS,        BASE NUM, &kp PLUS,  7   8)
+        COMBO(MINUS,       BASE NUM, &kp MINUS, 8   9)
+
+        COMBO(EQUAL,       BASE, &kp EQUAL,   19 21)
+        COMBO(LPAR_LBRC,   BASE, &lpar_lbrc,  19 20)
+        COMBO(RPAR_RBRC,   BASE, &rpar_rbrc,  20 21)
+
+        COMBO(LBKT_LT,     BASE, &lbkt_lt,  31 32)
+        COMBO(RBKT_GT,     BASE, &rbkt_gt,  32 33)
+
+        COMBO(CARET,       BASE, &kp CARET, 7  19)
+        COMBO(DLLR,        BASE, &kp DLLR,  8  20)
+
+        COMBO(UNDER,       BASE, &kp UNDER, 19 31)
+        COMBO(PIPE,        BASE, &kp PIPE,  21 33)
+
+        COMBO(ZERO,        NUM,  &kp N0,    31 32)
+        COMBO(DOT,         NUM,  &dot_com,  32 33)
     };
 
     behaviors {
@@ -102,9 +115,16 @@
             quick-tap-ms = <175>;
             bindings = <&mo>, <&kp>;
         };
-
         HOME_ROW_MOD(hml, CORNE_RIGHT_NUMBERS)
         HOME_ROW_MOD(hmr, CORNE_LEFT_NUMBERS)
+
+        MOD_MORPH(shft_cps,  LSHIFT, CAPS, MOD_RSFT)
+        MOD_MORPH(lpar_lbrc, LPAR,   LBRC, MOD_LSFT)
+        MOD_MORPH(rpar_rbrc, RPAR,   RBRC, MOD_LSFT)
+        MOD_MORPH(lbkt_lt,   LBKT,   LT,   MOD_LSFT)
+        MOD_MORPH(rbkt_gt,   RBKT,   GT,   MOD_LSFT)
+
+        MOD_MORPH(dot_com,   DOT,   COMMA, MOD_LSFT)
     };
 
     keymap {
@@ -113,7 +133,7 @@
             label = "Base";
             bindings = <
     &kp GRAVE  &kp Q    &kp W   &kp E         &kp R         &kp T        &kp Y   &kp U          &kp I     &kp O   &kp P    &kp LBKT
-    &kp LSHIFT L_HR(A      ,S      ,D            ,F)        &kp G        &kp H  R_HR(J             ,K        ,L   ,SEMI)   &kp RBKT
+    &shft_cps L_HR(A       ,S      ,D            ,F)        &kp G        &kp H  R_HR(J             ,K        ,L   ,SEMI)   &kp RBKT
     &caps_word &kp Z    &kp X   &kp C         &kp V         &kp B        &kp N   &kp M          &kp COMMA &kp DOT &kp FSLH &kp SQT
                                 BHT(SYM, TAB) BHT(NUM, ESC) &kp SPACE    &kp RET BHT(NAV, BSPC) BHT(FUN, DEL)
             >;
@@ -123,7 +143,7 @@
             label = "Nav";
             bindings = <
     &none &none    &none    &none      &none     &none        &kp LC(Z) &kp LC(C) &kp LC(V) &kp LC(X) &kp LC(Y) &none
-    &none &kp LGUI &kp LALT &kp LSHIFT &kp LCTRL &none        &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT &kp CAPS  &kp PSCRN
+    &none &kp LGUI &kp LALT &kp LSHIFT &kp LCTRL &none        &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT &kp PSCRN &none
     &none &none    &none    &none      &none     &none        &kp HOME  &kp PG_DN &kp PG_UP &kp END   &none     &none
                             &trans     &trans    &trans       &trans    &trans    &trans
             >;
@@ -133,8 +153,8 @@
             label = "Num";
             bindings = <
     &none &none    &none    &none      &none     &none     &none     &kp N7 &kp N8 &kp N9 &kp N0   &none
-    &none &kp LGUI &kp LALT &kp LSHIFT &kp LCTRL &none     &kp MINUS &kp N4 &kp N5 &kp N6 &kp BSLH &none
-    &none &none    &none    &none      &none     &none     &kp PLUS  &kp N1 &kp N2 &kp N3 &kp PIPE &none
+    &none &kp LGUI &kp LALT &kp LSHIFT &kp LCTRL &none     &kp PLUS  &kp N4 &kp N5 &kp N6 &none    &none
+    &none &none    &none    &none      &none     &none     &kp MINUS &kp N1 &kp N2 &kp N3 &kp DOT  &none
                             &trans     &trans    &trans    &trans    &trans &trans
             >;
         };
@@ -142,20 +162,20 @@
         sym_layer {
             label = "Sym";
             bindings = <
-    &none &none    &none    &none      &none     &none     &none     &kp AMPS &kp KP_MULTIPLY &kp LPAR  &kp RPAR &none
-    &none &kp LGUI &kp LALT &kp LSHIFT &kp LCTRL &none     &kp UNDER &kp DLLR &kp PRCNT       &kp CARET &kp BSLH &none
-    &none &none    &none    &none      &none     &none     &kp EQUAL &kp EXCL &kp AT          &kp HASH  &kp PIPE &none
-                            &trans     &none     &none     &none     &none    &none
+    &none &none    &none    &none      &none     &none     &none     &kp AMPS &kp KP_MULTIPLY &lpar_lbrc &rpar_rbrc &none
+    &none &kp LGUI &kp LALT &kp LSHIFT &kp LCTRL &none     &kp EQUAL &kp DLLR &kp PRCNT       &kp CARET  &kp BSLH   &none
+    &none &none    &none    &none      &none     &none     &kp UNDER &kp EXCL &kp AT          &kp HASH   &kp PIPE   &none
+                            &trans     &trans    &trans    &trans    &trans   &trans
             >;
         };
 
         fun_layer {
             label = "Fun";
             bindings = <
-    &none &kp F1  &kp F2  &kp F3 &kp F4 &kp F5    &none &none     &none      &none    &none    &none
-    &none &kp F6  &kp F7  &kp F8 &kp F9 &kp F10   &none &kp RCTRL &kp RSHIFT &kp RALT &kp RGUI &none
-    &none &kp F11 &kp F12 &none  &none  &none     &none &none     &none      &none    &none    &none
-                          &none  &none  &none     &none &none     &none
+    &none &kp F1  &kp F2  &kp F3 &kp F4 &kp F5    &none  &none     &none      &none    &none    &none
+    &none &kp F6  &kp F7  &kp F8 &kp F9 &kp F10   &none  &kp RCTRL &kp RSHIFT &kp RALT &kp RGUI &none
+    &none &kp F11 &kp F12 &none  &none  &none     &none  &none     &none      &none    &none    &none
+                          &trans &trans &trans    &trans &trans    &trans
             >;
         };
 
@@ -174,10 +194,10 @@
         gaming_layer {
             label = "Gaming";
             bindings = <
-    &kp TAB    &kp Q &kp W &kp E     &kp R     &kp T        &kp Y   &kp U        &kp I     &kp O   &kp P    &kp BSPC
-    &kp LSHIFT &kp A &kp S &kp D     &kp F     &kp G        &kp H   &kp J        &kp K     &kp L   &kp SEMI &kp RSHIFT
-    &kp LALT   &kp Z &kp X &kp C     &kp V     &kp B        &kp N   &kp M        &kp COMMA &kp DOT &kp FSLH &trans
-                           &kp LCTRL &kp SPACE &mo GAMING_R &kp RET &mo GAMING_L &kp RGUI
+    &kp TAB    &kp Q &kp W &kp E     &kp R        &kp T      &kp Y   &kp U        &kp I     &kp O   &kp P    &kp BSPC
+    &kp LSHIFT &kp A &kp S &kp D     &kp F        &kp G      &kp H   &kp J        &kp K     &kp L   &kp SEMI &kp RSHIFT
+    &kp LALT   &kp Z &kp X &kp C     &kp V        &kp B      &kp N   &kp M        &kp COMMA &kp DOT &kp FSLH &trans
+                           &kp LCTRL &mo GAMING_R &kp SPACE  &kp RET &mo GAMING_L &kp RGUI
             >;
         };
 
