@@ -19,6 +19,7 @@
 #define GAMING   6
 #define GAMING_R 7
 #define GAMING_L 8
+#define GAMING_C 9
 
 /*
                42 KEY MATRIX / LAYOUT MAPPING
@@ -79,12 +80,15 @@
 
     conditional_layers {
         compatible = "zmk,conditional-layers";
-        tri_layer {
+        combine_standard {
             if-layers = <NAV NUM>;
             then-layer = <COMBINE>;
         };
+        combine_gaming_standard {
+            if-layers = <GAMING_L GAMING_R>;
+            then-layer = <GAMING_C>;
+        };
     };
-
 
     behaviors {
         bht: behavior_hold_preferred {
@@ -222,10 +226,21 @@
         gaming_l_layer {
             label = "G Lower";
             bindings = <
-    &trans &trans &trans &trans &trans &trans &trans      &trans   &trans &trans    &trans &trans
-    &trans &trans &trans &trans &trans &trans &kp LEFT    &kp DOWN &kp UP &kp RIGHT &trans &trans
-    &trans &trans &trans &trans &trans &trans &tog GAMING &trans   &trans &trans    &trans &trans
-                         &trans &trans &trans &trans      &trans   &trans
+    &trans &trans &trans &trans &trans &trans &trans      &trans    &trans    &trans    &trans &trans
+    &trans &trans &trans &trans &trans &trans &kp LEFT    &kp DOWN  &kp UP    &kp RIGHT &trans &trans
+    &trans &trans &trans &trans &trans &trans &kp HOME    &kp PG_DN &kp PG_UP &kp END   &trans &trans
+                         &trans &trans &trans &trans      &trans    &trans
+            >;
+        };
+
+
+        gaming_c_layer {
+            label = "G Combine";
+            bindings = <
+    &trans &trans &trans &trans &trans &trans &trans      &trans &trans &trans &trans &trans
+    &trans &trans &trans &trans &trans &trans &trans      &trans &trans &trans &trans &trans
+    &trans &trans &trans &trans &trans &trans &tog GAMING &trans &trans &trans &trans &trans
+                         &trans &trans &trans &trans      &trans &trans
             >;
         };
     };
