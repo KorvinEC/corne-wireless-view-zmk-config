@@ -46,11 +46,12 @@
 #define R_HR(kp_1, kp_2, kp_3, kp_4) &hmr RCTRL kp_1 &hmr RSHIFT kp_2 &hmr RALT   kp_3 &hmr RGUI  kp_4
 #define L_HR(kp_1, kp_2, kp_3, kp_4) &hml LGUI  kp_1 &hml LALT   kp_2 &hml LSHIFT kp_3 &hml LCTRL kp_4
 #define BHT(kp_1, kp_2) &bht kp_1 kp_2
+#define BHT_BD &bht_b_d NAV 0
 
 #define COMBO(NAME, LAYERS, BINDINGS, KEYPOS) \
   combo_ ## NAME { \
     timeout-ms = <50>; \
-    require-prior-idle-ms = <50>; \
+    require-prior-idle-ms = <75>; \
     bindings = <BINDINGS>; \
     key-positions = <KEYPOS>; \
     layers = <LAYERS>; \
@@ -93,6 +94,7 @@
   delay-ms = <0>;                   // 10
 };
 
+
 / {
 
     conditional_layers {
@@ -131,9 +133,19 @@
         MOD_MORPH(mul_div,  KP_MULTIPLY, KP_DIVIDE, MOD_LSFT)
         MOD_MORPH(equal_under,    EQUAL,     UNDER, MOD_LSFT)
 
-        MOD_MORPH(under_pipe,     UNDER,      PIPE, MOD_LSFT)
+        MOD_MORPH(under_minus,     UNDER, KP_MINUS, MOD_LSFT)
         MOD_MORPH(dot_com,          DOT,     COMMA, MOD_LSFT)
 
+        MOD_MORPH(bspc_del,        BSPC,       DEL, MOD_LSFT)
+
+        bht_b_d: behavior_hold_preferred_bspc_del {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <210>;
+            quick-tap-ms = <175>;
+            bindings = <&mo>, <&bspc_del>;
+        };
 /*
                42 KEY MATRIX / LAYOUT MAPPING
 
@@ -162,7 +174,7 @@
         COMBO(PLUS_MINUS,  BASE NUM, &plus_minus,  7  8)
         COMBO(EQUAL_UNDER, BASE NUM, &equal_under, 8  9)
 
-        COMBO(UNDER_PIPE,  BASE, &under_pipe,      19 21)
+        COMBO(UNDER_MINUS, BASE, &under_minus,     19 21)
         COMBO(LPAR_LBRC,   BASE, &lpar_lbrc,       19 20)
         COMBO(RPAR_RBRC,   BASE, &rpar_rbrc,       20 21)
 
@@ -180,10 +192,10 @@
         default_layer {
             label = "Base";
             bindings = <
-    &kp GRAVE  &kp Q    &kp W   &kp E         &kp R         &kp T        &kp Y           &kp U          &kp I     &kp O   &kp P    &kp LBKT
-    &shft_cps L_HR(A       ,S      ,D            ,F)        &kp G        &kp H          R_HR(J             ,K        ,L   ,SEMI)   &kp RBKT
-    &caps_word &kp Z    &kp X   &kp C         &kp V         &kp B        &kp N           &kp M          &kp COMMA &kp DOT &kp FSLH &kp SQT
-                                BHT(SYM, TAB) BHT(NUM, ESC) &kp SPACE    BHT(MOUSE, RET) BHT(NAV, BSPC) BHT(FUN, DEL)
+    &kp GRAVE  &kp Q    &kp W   &kp E         &kp R         &kp T        &kp Y   &kp U  &kp I     &kp O   &kp P    &kp LBKT
+    &shft_cps L_HR(A       ,S      ,D            ,F)        &kp G        &kp H   R_HR(J    ,K        ,L   ,SEMI)   &kp RBKT
+    &caps_word &kp Z    &kp X   &kp C         &kp V         &kp B        &kp N   &kp M  &kp COMMA &kp DOT &kp FSLH &kp SQT
+                                BHT(SYM, TAB) BHT(NUM, ESC) &kp SPACE    &kp RET BHT_BD BHT(FUN, DEL)
             >;
         };
 
@@ -240,10 +252,10 @@
         combine_layer {
             label = "Combine";
             bindings = <
-    &trans     &trans       &trans       &trans       &trans       &trans       &trans      &trans &trans &trans &trans &trans
-    &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &trans      &trans &trans &trans &trans &trans
-    &trans     &trans       &trans       &trans       &trans       &trans       &tog GAMING &trans &trans &trans &trans &trans
-                                         &trans       &trans       &trans       &trans      &trans &trans
+    &trans     &trans       &trans       &trans       &trans       &trans       &trans &trans      &trans &trans &trans &trans
+    &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &trans &tog GAMING &trans &trans &trans &trans
+    &trans     &trans       &trans       &trans       &trans       &trans       &trans &trans      &trans &trans &trans
+                                         &trans       &trans       &trans       &trans &trans      &trans
             >;
         };
 
@@ -252,10 +264,10 @@
         gaming_layer {
             label = "Gaming";
             bindings = <
-    &kp TAB    &kp Q &kp W &kp E     &kp R        &kp T      &kp Y   &kp U        &kp I     &kp O   &kp P    &kp BSPC
-    &kp LSHIFT &kp A &kp S &kp D     &kp F        &kp G      &kp H   &kp J        &kp K     &kp L   &kp SEMI &kp RSHIFT
-    &kp LALT   &kp Z &kp X &kp C     &kp V        &kp B      &kp N   &kp M        &kp COMMA &kp DOT &kp FSLH &trans
-                           &kp LCTRL &mo GAMING_R &kp SPACE  &kp RET &mo GAMING_L &kp RGUI
+    &kp TAB    &kp Q &kp W &kp E     &kp R        &kp T      &kp Y   &kp U               &kp I     &kp O   &kp P    &kp LBKT
+    &kp LSHIFT &kp A &kp S &kp D     &kp F        &kp G      &kp H  R_HR(J                  ,K        ,L     ,SEMI) &kp RBKT
+    &kp LALT   &kp Z &kp X &kp C     &kp V        &kp B      &kp N   &kp M               &kp COMMA &kp DOT &kp FSLH &kp SQT
+                           &kp LCTRL BHT(GAMING_R, V) &kp SPACE  &kp RET BHT(GAMING_L, BSPC) &kp DEL
             >;
         };
 
@@ -283,10 +295,10 @@
         gaming_c_layer {
             label = "G Combine";
             bindings = <
-    &trans &trans &trans &trans &trans &trans &trans      &trans &trans &trans &trans &trans
-    &trans &trans &trans &trans &trans &trans &trans      &trans &trans &trans &trans &trans
-    &trans &trans &trans &trans &trans &trans &tog GAMING &trans &trans &trans &trans &trans
-                         &trans &trans &trans &trans      &trans &trans
+    &trans &trans &trans &trans &trans &trans &trans &trans      &trans &trans &trans &trans
+    &trans &trans &trans &trans &trans &trans &trans &tog GAMING &trans &trans &trans &trans
+    &trans &trans &trans &trans &trans &trans &trans &trans      &trans &trans &trans &trans
+                         &trans &trans &trans &trans &trans      &trans
             >;
         };
     };
