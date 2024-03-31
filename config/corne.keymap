@@ -45,7 +45,8 @@
 
 #define R_HR(kp_1, kp_2, kp_3, kp_4) &hmr RCTRL kp_1 &hmr RSHIFT kp_2 &hmr RALT   kp_3 &hmr RGUI  kp_4
 #define L_HR(kp_1, kp_2, kp_3, kp_4) &hml LGUI  kp_1 &hml LALT   kp_2 &hml LSHIFT kp_3 &hml LCTRL kp_4
-#define BHT(kp_1, kp_2) &bht kp_1 kp_2
+#define BHTM(kp_1, kp_2) &bht_mo kp_1 kp_2
+#define BHTK(kp_1, kp_2) &bht_kp kp_1 kp_2
 #define BHT_BD &bht_b_d NAV 0
 
 #define COMBO(NAME, LAYERS, BINDINGS, KEYPOS) \
@@ -110,7 +111,7 @@
     };
 
     behaviors {
-        bht: behavior_hold_preferred {
+        bht_mo: behavior_hold_preferred_mo {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
@@ -119,8 +120,17 @@
             bindings = <&mo>, <&kp>;
         };
 
-        HOME_ROW_MOD(hml, CORNE_RIGHT_NUMBERS CORNE_LEFT_THUMBS CORNE_RIGHT_THUMBS)
+        bht_kp: behavior_hold_preferred_kp {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <210>;
+            quick-tap-ms = <175>;
+            bindings = <&kp>, <&kp>;
+        };
+
         HOME_ROW_MOD(hmr, CORNE_LEFT_NUMBERS  CORNE_LEFT_THUMBS CORNE_RIGHT_THUMBS)
+        HOME_ROW_MOD(hml, CORNE_RIGHT_NUMBERS CORNE_LEFT_THUMBS CORNE_RIGHT_THUMBS)
 
         MOD_MORPH(shft_cps,  LSHIFT, CAPS, MOD_RSFT)
 
@@ -174,17 +184,27 @@
         COMBO(PLUS_MINUS,  BASE NUM, &plus_minus,  7  8)
         COMBO(EQUAL_UNDER, BASE NUM, &equal_under, 8  9)
 
-        COMBO(UNDER_MINUS, BASE, &under_minus,     19 21)
-        COMBO(LPAR_LBRC,   BASE, &lpar_lbrc,       19 20)
-        COMBO(RPAR_RBRC,   BASE, &rpar_rbrc,       20 21)
+        COMBO(UNDER_MINUS, BASE NUM, &under_minus,     19 21)
+        COMBO(LPAR_LBRC,   BASE NUM, &lpar_lbrc,       19 20)
+        COMBO(RPAR_RBRC,   BASE NUM, &rpar_rbrc,       20 21)
 
         COMBO(LBKT_LT,     BASE, &lbkt_lt,  31 32)
         COMBO(RBKT_GT,     BASE, &rbkt_gt,  32 33)
+
+        COMBO(RPAR,        SYM,  &kp RPAR,  31 32)
 
         COMBO(ZERO,        NUM,  &kp   N0,  31 32)
         COMBO(DOT,         NUM,  &dot_com,  32 33)
 
         COMBO(LANG,   BASE, &kp LA(LSHIFT), 14  15)
+
+        COMBO(GRAVE,      BASE,  &kp GRAVE,  1   2)
+        COMBO(SHIFT_CAPS, BASE,  &shft_cps, 13  14)
+        COMBO(CAPS_WORD,  BASE, &caps_word, 25  26)
+
+        COMBO(LBKT,       BASE,   &kp LBKT,  9  10)
+        COMBO(RBKT,       BASE,   &kp RBKT, 21  22)
+        COMBO(SQT,        BASE,   &kp SQT,  33  34)
     };
 
     keymap {
@@ -192,19 +212,19 @@
         default_layer {
             label = "Base";
             bindings = <
-    &kp GRAVE  &kp Q    &kp W   &kp E         &kp R         &kp T        &kp Y   &kp U  &kp I     &kp O   &kp P    &kp LBKT
-    &shft_cps L_HR(A       ,S      ,D            ,F)        &kp G        &kp H   R_HR(J    ,K        ,L   ,SEMI)   &kp RBKT
-    &caps_word &kp Z    &kp X   &kp C         &kp V         &kp B        &kp N   &kp M  &kp COMMA &kp DOT &kp FSLH &kp SQT
-                                BHT(SYM, TAB) BHT(NUM, ESC) &kp SPACE    &kp RET BHT_BD BHT(FUN, DEL)
+    &kp GRAVE  &kp Q    &kp W   &kp E          &kp R          &kp T      &kp Y             &kp U  &kp I     &kp O   &kp P    &kp LBKT
+    &shft_cps L_HR(A       ,S      ,D             ,F)         &kp G      &kp H            R_HR(J     ,K        ,L   ,SEMI)   &kp RBKT
+    &caps_word &kp Z    &kp X   &kp C          &kp V          &kp B      &kp N             &kp M  &kp COMMA &kp DOT &kp FSLH &kp SQT
+                                BHTM(SYM, TAB) BHTM(NUM, ESC) &kp SPACE  BHTK(RSHIFT, RET) BHT_BD BHTM(FUN, DEL)
             >;
         };
 
     nav_layer {
             label = "Nav";
             bindings = <
-    &none &none    &none    &none      &none     &none        &kp LC(Z) &kp LC(C) &kp LC(V) &kp LC(X) &kp LC(Y) &to BASE
+    &none &none    &none    &none      &none     &none        &kp LC(Z) &kp LC(C) &kp LC(V) &kp LC(X) &kp LC(Y) &none
     &none &kp LGUI &kp LALT &kp LSHIFT &kp LCTRL &none        &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT &kp PSCRN &none
-    &none &none    &none    &none      &none     &none        &kp HOME  &kp PG_DN &kp PG_UP &kp END   &smrt_ms    &none
+    &none &none    &none    &none      &none     &none        &kp HOME  &kp PG_DN &kp PG_UP &kp END   &smrt_ms  &none
                             &trans     &trans    &trans       &trans    &trans    &trans
             >;
         };
@@ -212,19 +232,19 @@
         num_layer {
             label = "Num";
             bindings = <
-    &none &none    &none    &none      &none     &none     &none     &kp N7 &kp N8 &kp N9 &kp N0   &to BASE
-    &none &kp LGUI &kp LALT &kp LSHIFT &kp LCTRL &none     &none     &kp N4 &kp N5 &kp N6 &none    &none
-    &none &none    &none    &none      &none     &none     &none     &kp N1 &kp N2 &kp N3 &dot_com &none
-                            &trans     &trans    &trans    &trans    &trans &trans
+    &none &kp GRAVE &kp CAPS  &caps_word &none     &none    &none  &kp N7 &kp N8 &kp N9 &kp LBKT &none
+    &none &kp LGUI  &kp LALT  &kp LSHIFT &kp LCTRL &none    &none  &kp N4 &kp N5 &kp N6 &kp RBKT &none
+    &none &none     &none     &none      &none     &none    &none  &kp N1 &kp N2 &kp N3 &kp SQT  &none
+                              &trans     &trans    &trans   &trans &trans &trans
             >;
         };
 
         sym_layer {
             label = "Sym";
             bindings = <
-    &none &none    &none    &none      &none     &none     &none     &kp AMPS  &kp KP_MULTIPLY &lpar_lbrc &rpar_rbrc &none
-    &none &kp LGUI &kp LALT &kp LSHIFT &kp LCTRL &none     &none     &kp CARET &kp PRCNT       &kp DLLR   &kp PIPE   &none
-    &none &none    &none    &none      &none     &none     &none     &kp EXCL  &kp AT          &kp HASH   &kp BSLH   &none
+    &none &none    &none    &none      &none     &none     &none     &kp AMPS  &kp KP_MULTIPLY &kp LBKT &none    &none
+    &none &kp LGUI &kp LALT &kp LSHIFT &kp LCTRL &none     &none     &kp CARET &kp PRCNT       &kp DLLR &kp PIPE &none
+    &none &none    &none    &none      &none     &none     &none     &kp EXCL  &kp AT          &kp HASH &kp BSLH &none
                             &trans     &trans    &trans    &trans    &trans    &trans
             >;
         };
@@ -267,7 +287,7 @@
     &kp TAB    &kp Q &kp W &kp E     &kp R        &kp T      &kp Y   &kp U               &kp I     &kp O   &kp P    &kp LBKT
     &kp LSHIFT &kp A &kp S &kp D     &kp F        &kp G      &kp H  R_HR(J                  ,K        ,L     ,SEMI) &kp RBKT
     &kp LALT   &kp Z &kp X &kp C     &kp V        &kp B      &kp N   &kp M               &kp COMMA &kp DOT &kp FSLH &kp SQT
-                           &kp LCTRL BHT(GAMING_R, V) &kp SPACE  &kp RET BHT(GAMING_L, BSPC) &kp DEL
+                           &kp LCTRL BHTM(GAMING_R, V) &kp SPACE  &kp RET BHTM(GAMING_L, BSPC) &kp DEL
             >;
         };
 
@@ -290,7 +310,6 @@
                          &trans &trans &trans &trans      &trans    &trans
             >;
         };
-
 
         gaming_c_layer {
             label = "G Combine";
