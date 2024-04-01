@@ -148,6 +148,13 @@
 
         MOD_MORPH(bspc_del,        BSPC,       DEL, MOD_LSFT)
 
+        caps_w_c: caps_word_caps {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&caps_word>, <&kp CAPS>;
+            mods = <(MOD_RSFT)>;
+        };
+
         bht_b_d: behavior_hold_preferred_bspc_del {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -199,12 +206,15 @@
         COMBO(LANG,   BASE, &kp LA(LSHIFT), 14  15)
 
         COMBO(GRAVE,      BASE,  &kp GRAVE,  1   2)
-        COMBO(SHIFT_CAPS, BASE,  &shft_cps, 13  14)
-        COMBO(CAPS_WORD,  BASE, &caps_word, 25  26)
+        COMBO(CAPS_W_C,   BASE,  &caps_w_c,  4   5)
 
         COMBO(LBKT,       BASE,   &kp LBKT,  9  10)
         COMBO(RBKT,       BASE,   &kp RBKT, 21  22)
         COMBO(SQT,        BASE,   &kp SQT,  33  34)
+
+        COMBO(LBKT_,      BASE,   &kp LBKT,  6   7)
+        COMBO(RBKT_,      BASE,   &kp RBKT, 18  19)
+        COMBO(SQT_,       BASE,   &kp SQT,  30  31)
     };
 
     keymap {
@@ -215,7 +225,7 @@
     &kp GRAVE  &kp Q    &kp W   &kp E          &kp R          &kp T      &kp Y             &kp U  &kp I     &kp O   &kp P    &kp LBKT
     &shft_cps L_HR(A       ,S      ,D             ,F)         &kp G      &kp H            R_HR(J     ,K        ,L   ,SEMI)   &kp RBKT
     &caps_word &kp Z    &kp X   &kp C          &kp V          &kp B      &kp N             &kp M  &kp COMMA &kp DOT &kp FSLH &kp SQT
-                                BHTM(SYM, TAB) BHTM(NUM, ESC) &kp SPACE  BHTK(RSHIFT, RET) BHT_BD BHTM(FUN, DEL)
+                                BHTM(SYM, TAB) BHTM(NUM, ESC) &kp SPACE  BHTM(FUN, RET) BHT_BD BHTK(RSHIFT, DEL)
             >;
         };
 
