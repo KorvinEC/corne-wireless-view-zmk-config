@@ -316,10 +316,10 @@
         gaming_l_layer {
             label = "G Lower";
             bindings = <
-    &trans &trans &trans &trans &trans &trans &trans      &trans    &trans    &trans    &trans &trans
-    &trans &trans &trans &trans &trans &trans &kp LEFT    &kp DOWN  &kp UP    &kp RIGHT &trans &trans
-    &trans &trans &trans &trans &trans &trans &kp HOME    &kp PG_DN &kp PG_UP &kp END   &trans &trans
-                         &trans &trans &trans &trans      &trans    &trans
+    &trans &trans &trans &trans &trans &trans &trans    &trans    &kp UP      &trans    &trans &trans
+    &trans &trans &trans &trans &trans &trans &trans   &kp LEFT   &kp DOWN    &kp RIGHT &trans &trans
+    &trans &trans &trans &trans &trans &trans &kp HOME &kp PG_DN &kp PG_UP &kp END   &trans &trans
+                         &trans &trans &trans &trans   &trans    &trans
             >;
         };
 
