@@ -219,21 +219,10 @@
 
         COMBO(RPAR_,        SYM,     &kp RPAR,       31 32)
 
-        COMBO(ZERO,        NUM,      &kp   N0,       31 32)
+        COMBO(ZERO,         NUM,      &kp   N0,       31 32)
         COMBO(DOT_,         NUM,      &dot_com,       32 33)
 
-        COMBO(LANG,       BASE,      &kp LA(LSHIFT), 14 15)
-
-        COMBO(GRAVE_,      BASE,      &kp GRAVE,       2  3)
-        COMBO(CAPS_W_C,   BASE,      &caps_w_c,       3  4)
-
-        COMBO(LBKT_,       BASE,      &kp LBKT,        9 10)
-        COMBO(RBKT_,       BASE,      &kp RBKT,       21 22)
-        COMBO(SQT_,        BASE,      &kp SQT,        33 34)
-
-        COMBO(LBKT__,      BASE,      &kp LBKT,        6  7)
-        COMBO(RBKT__,      BASE,      &kp RBKT,       18 19)
-        COMBO(SQT__,       BASE,      &kp SQT,        30 31)
+        COMBO(LANG,        BASE,      &kp LA(LSHIFT), 14 15)
     };
 
     keymap {
