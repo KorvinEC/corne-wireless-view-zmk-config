@@ -192,14 +192,6 @@
     ╰───────────╮ 36  37  38 │ 39  40  41 ╭───────────╯
                 ╰────────────┴────────────╯
 */
-
-        smrt_ms: smart_mouse {
-            compatible = "zmk,behavior-tri-state";
-            #binding-cells = <0>;
-            bindings = <&tog MOUSE>, <&none>, <&tog MOUSE>;
-            ignored-key-positions = <11 13 14 15 16 18 19 20 21 30 31 32 33 36 37 38 39 40 41>;
-            ignored-layers = <MOUSE>;
-        };
     };
 
     combos {
@@ -290,9 +282,9 @@
         combine_layer {
             label = "Comb";
             bindings = <
-    &none      &none        &none        &none        &none        &none        &none  &none       &none &none &none    &none
-    &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none  &tog GAMING &none &none &smrt_ms &none
-    &none      &none        &none        &none        &none        &none        &none  &none       &none &none &none    &none
+    &none      &none        &none        &none        &none        &none        &none  &none       &none &none &none     &none
+    &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none  &tog GAMING &none &none &to MOUSE &none
+    &none      &none        &none        &none        &none        &none        &none  &none       &none &none &none     &none
                                          &trans       &trans       &trans       &trans &trans      &trans
             >;
         };
