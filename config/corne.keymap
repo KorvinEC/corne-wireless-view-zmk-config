@@ -203,18 +203,21 @@
         COMBO(EQUAL_UNDER, BASE NUM, &equal_under,    8  9)
 
         COMBO_INSTANT(UNDER_MINUS, BASE NUM, &under_minus, 19 21)
-        COMBO(LPAR_LBRC,   BASE NUM, &lpar_lbrc,     19 20)
-        COMBO(RPAR_RBRC,   BASE NUM, &rpar_rbrc,     20 21)
+        COMBO(LPAR_LBRC,   BASE NUM, &lpar_lbrc,      19 20)
+        COMBO(RPAR_RBRC,   BASE NUM, &rpar_rbrc,      20 21)
 
-        COMBO(LBKT_LT,     BASE,     &lbkt_lt,       31 32)
-        COMBO(RBKT_GT,     BASE,     &rbkt_gt,       32 33)
+        COMBO(LBKT_LT,     BASE,     &lbkt_lt,        31 32)
+        COMBO(RBKT_GT,     BASE,     &rbkt_gt,        32 33)
 
-        COMBO(RPAR_,        SYM,     &kp RPAR,       31 32)
+        COMBO(RPAR_,        SYM,     &kp RPAR,        31 32)
 
         COMBO(ZERO,         NUM,      &kp   N0,       31 32)
         COMBO(DOT_,         NUM,      &dot_com,       32 33)
 
         COMBO(LANG,        BASE,      &kp LA(LSHIFT), 14 15)
+
+        COMBO(MOUSE,       BASE,      &to MOUSE,      34 35)
+        COMBO(TO_BASE,    MOUSE,      &to BASE,        7  8)
     };
 
     keymap {
@@ -282,9 +285,9 @@
         combine_layer {
             label = "Comb";
             bindings = <
-    &none      &none        &none        &none        &none        &none        &none  &none       &none &none &none     &none
-    &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none  &tog GAMING &none &none &to MOUSE &none
-    &none      &none        &none        &none        &none        &none        &none  &none       &none &none &none     &none
+    &none      &none        &none        &none        &none        &none        &none  &none       &none &none &none &none
+    &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none  &tog GAMING &none &none &none &none
+    &none      &none        &none        &none        &none        &none        &none  &none       &none &none &none &none
                                          &trans       &trans       &trans       &trans &trans      &trans
             >;
         };
@@ -304,18 +307,18 @@
         gaming_r_layer {
             label = "G Raise";
             bindings = <
-    &kp ESC &kp N1 &kp N2 &kp N3 &kp N4 &kp N5  &kp N6    &kp N7    &kp N8   &kp N9   &kp N0   &trans
+    &kp ESC  &kp N1 &kp N2 &kp N3 &kp N4 &kp N5  &kp N6    &kp N7    &kp N8   &kp N9   &kp N0   &trans
     &kp CAPS &kp F1 &kp F2 &kp F3 &kp F4 &kp F5  &kp MINUS &kp EQUAL &kp LBKT &kp RBKT &kp BSLH &trans
-    &trans  &kp F6 &kp F7 &kp F8 &kp F9 &kp F10 &kp PLUS  &kp UNDER &kp LBRC &kp RBRC &kp PIPE &trans
-                          &trans &trans &trans  &trans    &trans    &trans
+    &trans   &kp F6 &kp F7 &kp F8 &kp F9 &kp F10 &kp PLUS  &kp UNDER &kp LBRC &kp RBRC &kp PIPE &trans
+                           &trans &trans &trans  &trans    &trans    &trans
             >;
         };
 
         gaming_l_layer {
             label = "G Lower";
             bindings = <
-    &trans &trans &trans &trans &trans &trans &trans    &trans    &kp UP      &trans    &trans &trans
-    &trans &trans &trans &trans &trans &trans &trans   &kp LEFT   &kp DOWN    &kp RIGHT &trans &trans
+    &trans &trans &trans &trans &trans &trans &trans   &trans    &kp UP    &trans    &trans &trans
+    &trans &trans &trans &trans &trans &trans &trans   &kp LEFT  &kp DOWN  &kp RIGHT &trans &trans
     &trans &trans &trans &trans &trans &trans &kp HOME &kp PG_DN &kp PG_UP &kp END   &trans &trans
                          &trans &trans &trans &trans   &trans    &trans
             >;
