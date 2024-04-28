@@ -81,6 +81,21 @@
     bindings = <&kp>, <&kp>; \
   };
 
+#define BEHAVIOR_HOLD_TAP(NAME, FLAVOR, LEFT, RIGHT) \
+    NAME: behavior_ ## NAME { \
+        compatible = "zmk,behavior-hold-tap"; \
+        #binding-cells = <2>; \
+        flavor = FLAVOR; \
+        tapping-term-ms = <210>; \
+        quick-tap-ms = <175>; \
+        bindings = <LEFT>, <RIGHT>; \
+    };
+
+#define BHT_MO     BEHAVIOR_HOLD_TAP(bht_mo, "balanced", &mo, &kp)
+#define BHT_KP     BEHAVIOR_HOLD_TAP(bht_kp, "balanced", &kp, &kp)
+#define BHT_B_D    BEHAVIOR_HOLD_TAP(bht_b_d, "balanced", &mo, &bspc_del)
+#define STICKY_KEY BEHAVIOR_HOLD_TAP(sticky_key, "hold-preferred", &kp, &sk)
+
 #define MOD_MORPH(NAME, LEFT, RIGHT, MODS) \
     NAME: NAME { \
         compatible = "zmk,behavior-mod-morph"; \
@@ -121,23 +136,10 @@
     };
 
     behaviors {
-        bht_mo: behavior_hold_preferred_mo {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <210>;
-            quick-tap-ms = <175>;
-            bindings = <&mo>, <&kp>;
-        };
-
-        bht_kp: behavior_hold_preferred_kp {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <210>;
-            quick-tap-ms = <175>;
-            bindings = <&kp>, <&kp>;
-        };
+        BHT_MO
+        BHT_KP
+        BHT_B_D
+        STICKY_KEY
 
         HOME_ROW_MOD(hmr, CORNE_LEFT_NUMBERS  CORNE_LEFT_THUMBS CORNE_RIGHT_THUMBS)
         HOME_ROW_MOD(hml, CORNE_RIGHT_NUMBERS CORNE_LEFT_THUMBS CORNE_RIGHT_THUMBS)
@@ -163,24 +165,6 @@
             #binding-cells = <0>;
             bindings = <&caps_word>, <&kp CAPS>;
             mods = <(MOD_RSFT)>;
-        };
-
-        bht_b_d: behavior_hold_preferred_bspc_del {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <210>;
-            quick-tap-ms = <175>;
-            bindings = <&mo>, <&bspc_del>;
-        };
-
-        sticky_key: sticky_key_behavior {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "hold-preferred";
-            tapping-term-ms = <210>;
-            quick-tap-ms = <175>;
-            bindings = <&kp>, <&sk>;
         };
 /*
                42 KEY MATRIX / LAYOUT MAPPING
