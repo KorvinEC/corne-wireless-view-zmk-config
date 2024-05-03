@@ -120,6 +120,10 @@
   delay-ms = <0>;                   // 10
 };
 
+&sk {
+    release-after-ms = <2000>;
+    quick-release;
+};
 
 / {
 
