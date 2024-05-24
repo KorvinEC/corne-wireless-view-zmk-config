@@ -150,19 +150,19 @@
 
         MOD_MORPH(shft_cps,  LSHIFT, CAPS, MOD_RSFT)
 
-        MOD_MORPH(lpar_lbrc,       LPAR,      LBRC, MOD_LSFT)
-        MOD_MORPH(rpar_rbrc,       RPAR,      RBRC, MOD_LSFT)
-        MOD_MORPH(lbkt_lt,         LBKT,        LT, MOD_LSFT)
-        MOD_MORPH(rbkt_gt,         RBKT,        GT, MOD_LSFT)
+        MOD_MORPH(lpar_lbrc,       LPAR,        LBRC, MOD_LSFT)
+        MOD_MORPH(rpar_rbrc,       RPAR,        RBRC, MOD_LSFT)
+        MOD_MORPH(lbkt_lt,         LBKT,          LT, MOD_LSFT)
+        MOD_MORPH(rbkt_gt,         RBKT,          GT, MOD_LSFT)
 
-        MOD_MORPH(plus_minus,   KP_PLUS,  KP_MINUS, MOD_LSFT)
-        MOD_MORPH(mul_div,  KP_MULTIPLY, KP_DIVIDE, MOD_LSFT)
-        MOD_MORPH(equal_under,    EQUAL,     UNDER, MOD_LSFT)
+        MOD_MORPH(plus_mul,     KP_PLUS, KP_MULTIPLY, MOD_LSFT)
+        MOD_MORPH(minus_div,   KP_MINUS,   KP_DIVIDE, MOD_LSFT)
+        MOD_MORPH(equal_under,    EQUAL,       UNDER, MOD_LSFT)
 
-        MOD_MORPH(under_minus,     UNDER, KP_MINUS, MOD_LSFT)
-        MOD_MORPH(dot_com,          DOT,     COMMA, MOD_LSFT)
+        MOD_MORPH(under_minus,     UNDER,   KP_MINUS, MOD_LSFT)
+        MOD_MORPH(dot_com,          DOT,       COMMA, MOD_LSFT)
 
-        MOD_MORPH(bspc_del,        BSPC,       DEL, MOD_LSFT)
+        MOD_MORPH(bspc_del,        BSPC,         DEL, MOD_LSFT)
 
         caps_w_c: caps_word_caps {
             compatible = "zmk,behavior-mod-morph";
@@ -186,26 +186,27 @@
         compatible = "zmk,combos";
         require-prior-idle-ms = <150>;
 
-        COMBO(MUL_DIV,     BASE NUM, &mul_div,        7  9)
-        COMBO(PLUS_MINUS,  BASE NUM, &plus_minus,     7  8)
-        COMBO(EQUAL_UNDER, BASE NUM, &equal_under,    8  9)
+        COMBO(        EQUAL_UNDER, BASE NUM,    &equal_under, 7   9)
+        COMBO(           PLUS_MUL, BASE NUM,       &plus_mul, 7   8)
+        COMBO(          MINUS_DIV, BASE NUM,      &minus_div, 8   9)
+        COMBO_INSTANT(   MULTIPLY, BASE NUM, &kp KP_MULTIPLY, 7   8  9)
 
-        COMBO_INSTANT(UNDER_MINUS, BASE NUM, &under_minus, 19 21)
-        COMBO(LPAR_LBRC,   BASE NUM, &lpar_lbrc,      19 20)
-        COMBO(RPAR_RBRC,   BASE NUM, &rpar_rbrc,      20 21)
+        COMBO_INSTANT(UNDER_MINUS, BASE NUM,    &under_minus, 19 21)
+        COMBO(          LPAR_LBRC, BASE NUM,      &lpar_lbrc, 19 20)
+        COMBO(          RPAR_RBRC, BASE NUM,      &rpar_rbrc, 20 21)
 
-        COMBO(LBKT_LT,     BASE,     &lbkt_lt,        31 32)
-        COMBO(RBKT_GT,     BASE,     &rbkt_gt,        32 33)
+        COMBO(          LBKT_LT,       BASE,        &lbkt_lt, 31 32)
+        COMBO(          RBKT_GT,       BASE,        &rbkt_gt, 32 33)
 
-        COMBO(RPAR_,        SYM,     &kp RPAR,        31 32)
+        COMBO(          RPAR_,          SYM,        &kp RPAR, 31 32)
 
-        COMBO(ZERO,         NUM,      &kp   N0,       31 32)
-        COMBO(DOT_,         NUM,      &dot_com,       32 33)
+        COMBO(          ZERO,           NUM,        &kp   N0, 31 32)
+        COMBO(          DOT_,           NUM,        &dot_com, 32 33)
 
-        COMBO(LANG,        BASE,      &kp LA(LSHIFT), 14 15)
+        COMBO(          LANG,          BASE,  &kp LA(LSHIFT), 14 15)
 
-        COMBO(TO_MOUSE, NAV BASE,     &to MOUSE,      31 32 33)
-        COMBO(TO_BASE,    MOUSE,      &to BASE,       31 32 33)
+        COMBO(          TO_MOUSE,  NAV BASE,       &to MOUSE, 31 32 33)
+        COMBO(          TO_BASE,      MOUSE,        &to BASE, 31 32 33)
     };
 
     keymap {
