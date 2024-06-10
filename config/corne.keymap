@@ -49,6 +49,7 @@
 #define L_HR(kp_1, kp_2, kp_3, kp_4) &hml LGUI  kp_1 &hml LALT   kp_2 &hml LSHIFT kp_3 &hml LCTRL kp_4
 #define BHTM(kp_1, kp_2) &bht_mo kp_1 kp_2
 #define BHTK(kp_1, kp_2) &bht_kp kp_1 kp_2
+#define BHMS(kp_1, kp_2) &bht_mo_sk kp_1 kp_2
 
 #define BHT_BD &bht_b_d NAV 0
 #define S_SHIFT &sticky_key LSHIFT LSHIFT
@@ -94,6 +95,7 @@
 
 #define BHT_MO      BEHAVIOR_HOLD_TAP(     bht_mo,       "balanced",        &mo, &kp)
 #define BHT_KP      BEHAVIOR_HOLD_TAP(     bht_kp,       "balanced",        &kp, &kp)
+#define BHT_MO_SK   BEHAVIOR_HOLD_TAP(  bht_mo_sk,       "balanced",        &mo, &sk)
 #define BHT_B_D     BEHAVIOR_HOLD_TAP(    bht_b_d,       "balanced",        &mo, &bspc_del)
 #define STICKY_KEY  BEHAVIOR_HOLD_TAP( sticky_key, "hold-preferred",        &kp, &sk)
 #define CAPS_W_CAPS BEHAVIOR_HOLD_TAP(caps_w_caps, "hold-preferred",        &kp, &caps_word)
@@ -144,6 +146,7 @@
     behaviors {
         BHT_MO
         BHT_KP
+        BHT_MO_SK
         BHT_B_D
         STICKY_KEY
         CAPS_W_CAPS
@@ -306,7 +309,7 @@
     &kp TAB    &kp Q &kp W &kp E     &kp R        &kp T      &kp Y   &kp U               &kp I     &kp O   &kp P    &kp LBKT
     &shft_cps   &kp A &kp S &kp D     &kp F        &kp G      &kp H  R_HR(J                  ,K        ,L     ,SEMI) &kp RBKT
     &kp LALT   &kp Z &kp X &kp C     &kp V        &kp B      &kp N   &kp M               &kp COMMA &kp DOT &kp FSLH &kp SQT
-                           &kp LCTRL BHTM(GAMING_R, V) &kp SPACE  &kp RET BHTM(GAMING_L, BSPC) &kp DEL
+                           &kp LCTRL BHMS(GAMING_R, LALT) &kp SPACE  &kp RET BHTM(GAMING_L, BSPC) &kp DEL
             >;
         };
 
