@@ -309,7 +309,7 @@
     &kp TAB    &kp Q &kp W &kp E     &kp R        &kp T      &kp Y   &kp U               &kp I     &kp O   &kp P    &kp LBKT
     &shft_cps   &kp A &kp S &kp D     &kp F        &kp G      &kp H  R_HR(J                  ,K        ,L     ,SEMI) &kp RBKT
     &kp LALT   &kp Z &kp X &kp C     &kp V        &kp B      &kp N   &kp M               &kp COMMA &kp DOT &kp FSLH &kp SQT
-                           &kp LCTRL BHMS(GAMING_R, LALT) &kp SPACE  &kp RET BHTM(GAMING_L, BSPC) &kp DEL
+                           &kp LCTRL &mo GAMING_R &kp SPACE  &kp RET BHTM(GAMING_L, BSPC) &kp DEL
             >;
         };
 
