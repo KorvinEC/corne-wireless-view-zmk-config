@@ -263,7 +263,7 @@
             label = "Sym";
             bindings = <
     &none &none    &none    &none      &none     &none      &none  &plus_mul  &minus_div &equal_under &none &none
-    &none &kp LGUI &kp LALT &kp LSHIFT &kp LCTRL &none      &none  &lpar_lbrc &rpar_rbrc &none        &none &none
+    &none &kp LGUI &kp LALT &kp LSHIFT &kp LCTRL &none      &none  &lpar_lbrc &rpar_rbrc &kp UNDER    &none &none
     &none &none    &none    &none      &none     &none      &none  &lbkt_lt   &rbkt_gt   &none        &none &none
                             &trans     &trans    &trans     &trans &trans     &trans
             >;
