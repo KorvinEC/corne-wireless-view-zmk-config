@@ -139,7 +139,7 @@
         };
         combine_gaming_standard {
             if-layers = <GAMING_L GAMING_R>;
-            then-layer = <COMBINE>;
+            then-layer = <GAMING_C>;
         };
     };
 
