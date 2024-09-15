@@ -188,7 +188,7 @@
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <BHTM(NUM, ESC)>, <BHTM(SYM, ESC)>;
-            mods = <(MOD_RSFT)>;
+            mods = <(MOD_LSFT | MOD_RSFT)>;
         };
 /*
                42 KEY MATRIX / LAYOUT MAPPING
