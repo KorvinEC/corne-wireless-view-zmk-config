@@ -109,7 +109,7 @@
     };
 
 &caps_word {
-    continue-list = <UNDERSCORE MINUS BSPC DEL>;
+    continue-list = <UNDERSCORE MINUS BSPC DEL LBKT RBKT COMMA DOT SEMI SQT>;
 };
 
 &mmv {
