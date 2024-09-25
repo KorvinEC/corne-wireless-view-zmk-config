@@ -236,7 +236,7 @@
     &kp GRAVE   &kp Q &kp W          &kp E          &kp R               &kp T          &kp Y  &kp U &kp I     &kp O   &kp P    &kp LBKT
     S_SHIFT    L_HR(A    ,S             ,D             ,F)              &kp G          &kp H R_HR(J    ,K        ,L   ,SEMI)   &kp RBKT
     &caps_w_c   &kp Z &kp X          &kp C          &kp V               &kp B          &kp N  &kp M &kp COMMA &kp DOT &kp FSLH &kp SQT
-                      BHTM(SYM, TAB) &esc_num_sym   BHTM(SYM, SPACE)    BHTM(FUN, RET) BHT_BD &s_shift_caps_w
+                      BHTM(SYM, TAB) &esc_num_sym   &kp SPACE           BHTM(FUN, RET) BHT_BD &s_shift_caps_w
             >;
         };
 
