@@ -190,6 +190,14 @@
             bindings = <BHTM(NUM, ESC)>, <BHTM(SYM, ESC)>;
             mods = <(MOD_LSFT | MOD_RSFT)>;
         };
+
+        smart_mouse: smart_mouse {
+            compatible = "zmk,behavior-tri-state";
+            #binding-cells = <0>;
+            bindings = <&tog MOUSE>, <&none>, <&tog MOUSE>;
+            ignored-key-positions = <13 14 15 16 18 19 20 21 30 31 32 33 36 37 38 39 40 41>;
+            ignored-layers = <MOUSE>;
+        };
 /*
                42 KEY MATRIX / LAYOUT MAPPING
 
@@ -223,7 +231,7 @@
 
         COMBO(          LANG,          BASE,  &kp LA(LSHIFT), 14 15)
 
-        COMBO(          TO_MOUSE,  NAV BASE,       &to MOUSE, 31 32 33)
+        COMBO(          TO_MOUSE,  NAV BASE,    &smart_mouse, 31 32 33)
         COMBO(          TO_BASE,      MOUSE,        &to BASE, 31 32 33)
     };
 
