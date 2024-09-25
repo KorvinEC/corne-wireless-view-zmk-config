@@ -181,7 +181,7 @@
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <S_SHIFT>, <C_W_CAPS>;
-            mods = <(MOD_LSFT)>;
+            mods = <(MOD_LSFT | MOD_RSFT)>;
         };
 
         esc_num_sym: esc_num_shift_sym {
