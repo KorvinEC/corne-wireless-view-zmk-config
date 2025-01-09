@@ -48,6 +48,7 @@
 #define R_HR(kp_1, kp_2, kp_3, kp_4) &hmr RCTRL kp_1 &hmr RSHIFT kp_2 &hmr RALT   kp_3 &hmr RGUI  kp_4
 #define L_HR(kp_1, kp_2, kp_3, kp_4) &hml LGUI  kp_1 &hml LALT   kp_2 &hml LSHIFT kp_3 &hml LCTRL kp_4
 #define BHTM(kp_1, kp_2) &bht_mo kp_1 kp_2
+#define BHPM(kp_1, kp_2) &bhp_mo kp_1 kp_2
 #define BHTK(kp_1, kp_2) &bht_kp kp_1 kp_2
 #define BHMS(kp_1, kp_2) &bht_mo_sk kp_1 kp_2
 
@@ -93,12 +94,13 @@
         bindings = <LEFT>, <RIGHT>; \
     };
 
-#define BHT_MO      BEHAVIOR_HOLD_TAP(     bht_mo,       "balanced",        &mo, &kp)
-#define BHT_KP      BEHAVIOR_HOLD_TAP(     bht_kp,       "balanced",        &kp, &kp)
-#define BHT_MO_SK   BEHAVIOR_HOLD_TAP(  bht_mo_sk,       "balanced",        &mo, &sk)
-#define BHT_B_D     BEHAVIOR_HOLD_TAP(    bht_b_d,       "balanced",        &mo, &bspc_del)
-#define STICKY_KEY  BEHAVIOR_HOLD_TAP( sticky_key, "hold-preferred",        &kp, &sk)
-#define CAPS_W_CAPS BEHAVIOR_HOLD_TAP(caps_w_caps, "hold-preferred",        &kp, &caps_word)
+#define BHT_MO      BEHAVIOR_HOLD_TAP(      bht_mo,       "balanced", &mo,        &kp )
+#define BHP_MO      BEHAVIOR_HOLD_TAP(      bhp_mo, "hold-preferred", &mo,        &kp )
+#define BHT_KP      BEHAVIOR_HOLD_TAP(      bht_kp,       "balanced", &kp,        &kp )
+#define BHT_MO_SK   BEHAVIOR_HOLD_TAP(   bht_mo_sk,       "balanced", &mo,        &sk )
+#define BHT_B_D     BEHAVIOR_HOLD_TAP(     bht_b_d,       "balanced", &mo,  &bspc_del )
+#define STICKY_KEY  BEHAVIOR_HOLD_TAP(  sticky_key, "hold-preferred", &kp,        &sk )
+#define CAPS_W_CAPS BEHAVIOR_HOLD_TAP( caps_w_caps, "hold-preferred", &kp, &caps_word )
 
 #define MOD_MORPH(NAME, LEFT, RIGHT, MODS) \
     NAME: NAME { \
@@ -145,6 +147,7 @@
 
     behaviors {
         BHT_MO
+        BHP_MO
         BHT_KP
         BHT_MO_SK
         BHT_B_D
@@ -236,7 +239,7 @@
     &kp GRAVE   &kp Q &kp W          &kp E          &kp R               &kp T          &kp Y  &kp U &kp I     &kp O   &kp P    &kp LBKT
     S_SHIFT    L_HR(A    ,S             ,D             ,F)              &kp G          &kp H R_HR(J    ,K        ,L   ,SEMI)   &kp RBKT
     &caps_w_c   &kp Z &kp X          &kp C          &kp V               &kp B          &kp N  &kp M &kp COMMA &kp DOT &kp FSLH &kp SQT
-                      BHTM(SYM, TAB) &esc_num_sym   &kp SPACE           BHTM(FUN, RET) BHT_BD &s_shift_caps_w
+                      BHPM(SYM, TAB) &esc_num_sym   &kp SPACE           BHTM(FUN, RET) BHT_BD &s_shift_caps_w
             >;
         };
 
