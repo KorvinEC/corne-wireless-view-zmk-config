@@ -164,11 +164,11 @@
         MOD_MORPH(lbkt_lt,         LBKT,          LT, MOD_LSFT)
         MOD_MORPH(rbkt_gt,         RBKT,          GT, MOD_LSFT)
 
-        MOD_MORPH(plus_mul,     KP_PLUS, KP_MULTIPLY, MOD_LSFT)
-        MOD_MORPH(minus_div,   KP_MINUS,   KP_DIVIDE, MOD_LSFT)
+        MOD_MORPH(plus_mul,        PLUS,    ASTERISK, MOD_LSFT)
+        MOD_MORPH(minus_div,      MINUS,       SLASH, MOD_LSFT)
         MOD_MORPH(equal_under,    EQUAL,       UNDER, MOD_LSFT)
 
-        MOD_MORPH(under_minus,     UNDER,   KP_MINUS, MOD_LSFT)
+        MOD_MORPH(under_minus,    UNDER,       MINUS, MOD_LSFT)
         MOD_MORPH(dot_com,          DOT,       COMMA, MOD_LSFT)
 
         MOD_MORPH(bspc_del,        BSPC,         DEL, MOD_LSFT)
@@ -212,7 +212,7 @@
         COMBO(        EQUAL_UNDER,  SYM NUM,    &equal_under, 7   9)
         COMBO(           PLUS_MUL,  SYM NUM,       &plus_mul, 7   8)
         COMBO(          MINUS_DIV,  SYM NUM,      &minus_div, 8   9)
-        COMBO_INSTANT(   MULTIPLY,  SYM NUM, &kp KP_MULTIPLY, 7   8  9)
+        COMBO_INSTANT(   MULTIPLY,  SYM NUM,    &kp ASTERISK, 7   8  9)
 
         COMBO_INSTANT(UNDER_MINUS,  SYM NUM,    &under_minus, 19 21)
         COMBO(          LPAR_LBRC,  SYM NUM,      &lpar_lbrc, 19 20)
