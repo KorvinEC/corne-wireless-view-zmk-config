@@ -111,7 +111,7 @@
     };
 
 &caps_word {
-    continue-list = <UNDERSCORE MINUS BSPC DEL LBKT RBKT COMMA DOT SEMI SQT>;
+    continue-list = <UNDERSCORE MINUS BSPC DEL COLON SQT>;
 };
 
 &mmv {
